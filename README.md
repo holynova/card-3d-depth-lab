@@ -4,8 +4,8 @@ An interactive DOM/CSS 3D card prototype. Layers use different `translateZ(...)`
 
 ## Links
 
-- **GitHub Repository**: [github.com/holy_nova/card-3d-depth-lab](https://github.com/holy_nova/card-3d-depth-lab)
-- **Live Demo**: [holy_nova.github.io/card-3d-depth-lab](https://holy_nova.github.io/card-3d-depth-lab/)
+- **GitHub Repository**: [github.com/holynova/card-3d-depth-lab](https://github.com/holynova/card-3d-depth-lab)
+- **Live Demo**: [holynova.github.io/card-3d-depth-lab](https://holynova.github.io/card-3d-depth-lab/)
 
 ## Screenshot
 
