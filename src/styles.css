@@ -37,7 +37,9 @@ button {
   display: grid;
   place-items: center;
   padding: clamp(28px, 5vw, 64px);
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
   background:
     radial-gradient(circle at 14% 12%, rgba(243, 246, 249, 0.65), transparent 19%),
     radial-gradient(circle at 78% 22%, rgba(214, 221, 231, 0.7), transparent 18%),
@@ -98,14 +100,15 @@ button {
   top: 18px;
   right: 18px;
   z-index: 10;
-  width: 184px;
-  padding: 12px;
-  border: 1px solid rgba(255,255,255,0.22);
-  border-radius: 8px;
-  color: rgba(255,255,255,0.86);
-  background: rgba(20, 27, 38, 0.52);
-  backdrop-filter: blur(18px);
-  box-shadow: 0 18px 48px rgba(19, 27, 38, 0.24);
+  width: 220px;
+  padding: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 12px;
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(20, 27, 38, 0.65);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 18px 48px rgba(19, 27, 38, 0.32);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .debug-title {
@@ -113,11 +116,18 @@ button {
   align-items: center;
   justify-content: space-between;
   gap: 10px;
-  margin: 0 0 10px;
   font-size: 11px;
   font-weight: 800;
   letter-spacing: .14em;
   text-transform: uppercase;
+  cursor: pointer;
+  user-select: none;
+}
+
+.debug-title-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .debug-title button {
@@ -125,33 +135,174 @@ button {
   border-radius: 999px;
   padding: 4px 8px;
   color: #17202b;
-  background: rgba(255,255,255,0.82);
+  background: rgba(255, 255, 255, 0.82);
   cursor: pointer;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 800;
+  transition: all 0.2s ease;
+}
+
+.debug-title button:hover {
+  background: #fff;
+  transform: scale(1.05);
+}
+
+#togglePanel {
+  background: transparent;
+  color: rgba(255, 255, 255, 0.6);
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+}
+
+#togglePanel:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.toggle-arrow {
+  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.debug-panel.is-collapsed .toggle-arrow {
+  transform: rotate(-180deg);
+}
+
+.debug-panel.is-collapsed .debug-controls {
+  display: none;
 }
 
 .debug-controls {
   display: grid;
+  gap: 12px;
+  margin-top: 14px;
+  max-height: 60vh;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+/* Scrollbar styling for controls */
+.debug-controls::-webkit-scrollbar {
+  width: 4px;
+}
+.debug-controls::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 2px;
+}
+.debug-controls::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+}
+
+.control-row {
+  display: flex;
+  flex-direction: column;
   gap: 6px;
+}
+
+.control-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .debug-controls label {
   display: flex;
   align-items: center;
   gap: 8px;
-  min-height: 24px;
-  color: rgba(255,255,255,0.76);
-  font-size: 12px;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 11px;
   line-height: 1;
+  font-weight: 600;
+  cursor: pointer;
 }
 
-.debug-controls input {
+.debug-controls input[type="checkbox"] {
   width: 14px;
   height: 14px;
   margin: 0;
   accent-color: #fff3cf;
+  cursor: pointer;
 }
+
+.opacity-val {
+  font-size: 10px;
+  font-family: monospace;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.slider-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  transition: opacity 0.2s ease;
+}
+
+/* Style the range slider */
+.opacity-slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 2px;
+  outline: none;
+  margin: 4px 0;
+  cursor: pointer;
+}
+
+.opacity-slider:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* Webkit track and thumb styling */
+.opacity-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #fff3cf;
+  box-shadow: 0 0 8px rgba(255, 243, 207, 0.6);
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.opacity-slider:not(:disabled):hover::-webkit-slider-thumb {
+  transform: scale(1.3);
+  background: #fff;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.9);
+}
+
+.opacity-slider:disabled::-webkit-slider-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: none;
+  transform: none;
+}
+
+/* Firefox styling */
+.opacity-slider::-moz-range-thumb {
+  width: 10px;
+  height: 10px;
+  border: 0;
+  border-radius: 50%;
+  background: #fff3cf;
+  box-shadow: 0 0 8px rgba(255, 243, 207, 0.6);
+  transition: transform 0.15s ease, background-color 0.15s ease;
+  cursor: pointer;
+}
+
+.opacity-slider:not(:disabled):hover::-moz-range-thumb {
+  transform: scale(1.3);
+  background: #fff;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.9);
+}
+
 
 .card-gallery {
   position: relative;
@@ -684,16 +835,24 @@ button {
     right: 10px;
     left: 10px;
     width: auto;
-    padding: 10px;
+    padding: 10px 14px;
+    border-radius: 10px;
   }
 
   .debug-controls {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 6px 8px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px 16px;
+    max-height: 40vh;
+    overflow-y: auto;
+    padding-right: 4px;
+    margin-top: 10px;
   }
 
-  .debug-controls label {
-    font-size: 11px;
+  @media (max-width: 480px) {
+    .debug-controls {
+      grid-template-columns: 1fr;
+      gap: 8px 0;
+    }
   }
 
   .card-gallery {

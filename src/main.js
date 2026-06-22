@@ -111,17 +111,30 @@ app.innerHTML = `
     <div class="card-gallery">
       ${cards.map(cardTemplate).join("")}
     </div>
-    <aside class="debug-panel" aria-label="Layer debug panel">
-      <div class="debug-title">
+    <aside class="debug-panel" id="debugPanel" aria-label="Layer debug panel">
+      <div class="debug-title" id="debugTitle">
         <span>Layers</span>
-        <button type="button" id="resetLayers">Reset</button>
+        <div class="debug-title-actions">
+          <button type="button" id="resetLayers">Reset</button>
+          <button type="button" id="togglePanel" aria-label="Toggle controls panel">
+            <svg class="toggle-arrow" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+          </button>
+        </div>
       </div>
       <div class="debug-controls">
         ${layerControls.map((layer) => `
-          <label>
-            <input type="checkbox" data-layer="${layer.id}" ${layer.defaultOn ? "checked" : ""} />
-            <span>${layer.label}</span>
-          </label>
+          <div class="control-row">
+            <div class="control-label-row">
+              <label>
+                <input type="checkbox" data-layer="${layer.id}" ${layer.defaultOn ? "checked" : ""} />
+                <span>${layer.label}</span>
+              </label>
+              <span class="opacity-val" data-val-for="${layer.id}">100%</span>
+            </div>
+            <div class="slider-container">
+              <input type="range" min="0" max="100" value="100" class="opacity-slider" data-slider="${layer.id}" ${layer.defaultOn ? "" : "disabled"} />
+            </div>
+          </div>
         `).join("")}
       </div>
     </aside>
@@ -130,12 +143,44 @@ app.innerHTML = `
 
 const sceneShell = document.querySelector("#sceneShell");
 
+const selectorMap = {
+  image: ".image-window img",
+  grain: ".paper-grain",
+  vignette: ".image-vignette",
+  foil: ".foil-wash",
+  border: ".card-border",
+  corner: ".corner-badge",
+  copy: ".copy-layer",
+  seal: ".seal",
+  flowers: ".flower-cluster",
+  sparkles: ".sparkle-layer",
+  footer: ".card-footer",
+  back: ".card-back"
+};
+
 const applyLayerState = () => {
   layerControls.forEach((layer) => {
-    const input = document.querySelector(`[data-layer="${layer.id}"]`);
-    const isOn = input.checked;
+    const checkbox = document.querySelector(`[data-layer="${layer.id}"]`);
+    const slider = document.querySelector(`[data-slider="${layer.id}"]`);
+    const isOn = checkbox.checked;
+    
     sceneShell.classList.toggle(`debug-hide-${layer.id}`, !isOn);
     sceneShell.classList.toggle(`debug-show-${layer.id}`, isOn);
+    
+    if (slider) {
+      slider.disabled = !isOn;
+      const val = parseInt(slider.value, 10);
+      const opacity = isOn ? (val / 100).toFixed(2) : 0;
+      
+      document.querySelectorAll(selectorMap[layer.id]).forEach((el) => {
+        el.style.opacity = opacity;
+      });
+      
+      const valSpan = document.querySelector(`[data-val-for="${layer.id}"]`);
+      if (valSpan) {
+        valSpan.textContent = isOn ? `${val}%` : "0%";
+      }
+    }
   });
 };
 
@@ -143,12 +188,57 @@ document.querySelectorAll("[data-layer]").forEach((input) => {
   input.addEventListener("change", applyLayerState);
 });
 
-document.querySelector("#resetLayers").addEventListener("click", () => {
+document.querySelectorAll(".opacity-slider").forEach((slider) => {
+  slider.addEventListener("input", (e) => {
+    const layerId = e.target.dataset.slider;
+    const checkbox = document.querySelector(`[data-layer="${layerId}"]`);
+    if (checkbox.checked) {
+      const val = e.target.value;
+      document.querySelectorAll(selectorMap[layerId]).forEach((el) => {
+        el.style.opacity = (val / 100).toFixed(2);
+      });
+      const valSpan = document.querySelector(`[data-val-for="${layerId}"]`);
+      if (valSpan) {
+        valSpan.textContent = `${val}%`;
+      }
+    }
+  });
+});
+
+document.querySelector("#resetLayers").addEventListener("click", (e) => {
+  e.stopPropagation();
   layerControls.forEach((layer) => {
-    document.querySelector(`[data-layer="${layer.id}"]`).checked = layer.defaultOn;
+    const checkbox = document.querySelector(`[data-layer="${layer.id}"]`);
+    const slider = document.querySelector(`[data-slider="${layer.id}"]`);
+    checkbox.checked = layer.defaultOn;
+    if (slider) {
+      slider.value = 100;
+      slider.disabled = !layer.defaultOn;
+    }
   });
   applyLayerState();
 });
+
+const debugPanel = document.querySelector("#debugPanel");
+const togglePanelBtn = document.querySelector("#togglePanel");
+const debugTitle = document.querySelector("#debugTitle");
+
+const togglePanel = () => {
+  debugPanel.classList.toggle("is-collapsed");
+};
+
+togglePanelBtn.addEventListener("click", (e) => {
+  e.stopPropagation();
+  togglePanel();
+});
+
+debugTitle.addEventListener("click", () => {
+  togglePanel();
+});
+
+if (window.innerWidth <= 900) {
+  debugPanel.classList.add("is-collapsed");
+}
 
 applyLayerState();
 
