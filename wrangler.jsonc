@@ -1,0 +1,15 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "card-3d-depth-lab",
+  "compatibility_date": "2026-09-04",
+  "workers_dev": false,
+  "assets": {
+    "directory": "./dist"
+  },
+  "routes": [
+    {
+      "pattern": "card-3d-depth-lab.xiaosang.cc",
+      "custom_domain": true
+    }
+  ]
+}

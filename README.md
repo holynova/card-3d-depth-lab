@@ -6,6 +6,7 @@ An interactive DOM/CSS 3D card prototype. Layers use different `translateZ(...)`
 
 - **GitHub Repository**: [github.com/holynova/card-3d-depth-lab](https://github.com/holynova/card-3d-depth-lab)
 - **Live Demo**: [holynova.github.io/card-3d-depth-lab](https://holynova.github.io/card-3d-depth-lab/)
+- **Cloudflare Demo**: [card-3d-depth-lab.xiaosang.cc](https://card-3d-depth-lab.xiaosang.cc/)
 
 ## Screenshot
 
@@ -14,7 +15,8 @@ An interactive DOM/CSS 3D card prototype. Layers use different `translateZ(...)`
 ## Development
 
 ```bash
-npm install
-npm run dev
-npm run build
+pnpm install
+pnpm run dev
+pnpm run build        # Cloudflare Static Assets -> dist/
+pnpm run build:pages  # GitHub Pages -> docs/
 ```
