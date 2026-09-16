@@ -11,10 +11,24 @@ An interactive DOM/CSS 3D card prototype. Layers use different `translateZ(...)`
 
 ![3D Card Depth Lab Screenshot](./docs/screenshot.png)
 
+## Try the effect
+
+Open the live demo and move the pointer across the card. Compare how foreground and background layers move: the effect combines CSS depth with pointer-driven translation rather than a flat image transform.
+
+The recorded reference measurements are in [REFERENCE_MEASUREMENTS.md](REFERENCE_MEASUREMENTS.md).
+
 ## Development
 
 ```bash
-npm install
+npm ci
 npm run dev
-npm run build
 ```
+
+Build and inspect the production output separately:
+
+```bash
+npm run build
+npm run preview
+```
+
+Open the local address printed by Vite.
