@@ -2,6 +2,11 @@
 
 An interactive DOM/CSS 3D card prototype. Layers use different `translateZ(...)` depths and pointer-driven `translate3d(...)` multipliers to create an immersive parallax effect.
 
+<p align="center">
+  <img src="assets/readme/hero.svg" width="100%" alt="3D Card Depth Lab: An interactive DOM/CSS 3D card prototype. Layers use different depths and pointer-driven multipliers to create an immersive parallax effect.">
+</p>
+
+
 ## Links
 
 - **GitHub Repository**: [github.com/holynova/card-3d-depth-lab](https://github.com/holynova/card-3d-depth-lab)
