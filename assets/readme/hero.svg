@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="1200" height="360" viewBox="0 0 1200 360"
+     role="img" aria-labelledby="title desc">
+  <title id="title">3D Card Depth Lab — 视差卡片实验室</title>
+  <desc id="desc">深蓝灰底标题：3D Card Depth Lab，指针一动卡片就有了纵深；右侧是图层爆炸图：底板、图片、文案、星光四层按深度错开叠放，标注深度 0 / 8 / 34 / 42。</desc>
+
+  <rect width="1200" height="360" rx="26" fill="#232c3d"/>
+
+  <g id="title-block" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif">
+    <text x="56" y="62" font-size="19" letter-spacing="3" fill="#aab6cc">INTERACTIVE CSS 3D · 视差卡片实验室</text>
+    <text x="56" y="128" font-size="54" font-weight="700" fill="#e8ecf4">3D Card Depth Lab</text>
+    <text x="56" y="168" font-size="23" fill="#ffd166">指针一动，卡片就有了纵深</text>
+    <text x="56" y="204" font-size="19" fill="#aab6cc">12 个图层各站一个 translateZ 深度，指针驱动倾斜与视差。</text>
+    <g id="chips" font-size="18" fill="#e8ecf4" text-anchor="middle">
+      <g><rect x="56" y="238" width="126" height="36" rx="18" fill="#2f3a4f" stroke="#45536e" stroke-width="1.5"/><text x="119" y="262">3 张卡片</text></g>
+      <g><rect x="194" y="238" width="126" height="36" rx="18" fill="#2f3a4f" stroke="#45536e" stroke-width="1.5"/><text x="257" y="262">12 图层</text></g>
+      <g><rect x="332" y="238" width="144" height="36" rx="18" fill="#2f3a4f" stroke="#45536e" stroke-width="1.5"/><text x="404" y="262">双击翻牌</text></g>
+      <g><rect x="488" y="238" width="144" height="36" rx="18" fill="#2f3a4f" stroke="#45536e" stroke-width="1.5"/><text x="560" y="262">纯 DOM + CSS</text></g>
+    </g>
+  </g>
+
+  <g id="layers-diagram" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif">
+    <text x="740" y="46" font-size="18" fill="#aab6cc">图层爆炸图 · 深度单位 px</text>
+    <g id="stack">
+      <rect x="740" y="140" width="200" height="120" rx="12" fill="#313d52" stroke="#45536e" stroke-width="1.5"/>
+      <rect x="765" y="115" width="200" height="120" rx="12" fill="#3d4a63" stroke="#45536e" stroke-width="1.5"/>
+      <rect x="790" y="90" width="200" height="120" rx="12" fill="#4a5a76" stroke="#45536e" stroke-width="1.5"/>
+      <g id="front-card">
+        <rect x="815" y="65" width="200" height="120" rx="12" fill="#5a6c8c" stroke="#6b7f9e" stroke-width="1.5"/>
+        <path d="M835 155 L875 105 L900 135 L920 110 L960 155 Z" fill="#2f3a4f"/>
+        <circle cx="975" cy="90" r="10" fill="#ffd166"/>
+        <rect x="835" y="162" width="120" height="8" rx="4" fill="#e8ecf4"/>
+        <rect x="835" y="175" width="80" height="6" rx="3" fill="#aab6cc"/>
+      </g>
+      <g id="sparkles" fill="#ffd166">
+        <circle cx="995" cy="75" r="3"/><circle cx="830" cy="95" r="2.5"/><circle cx="965" cy="130" r="2"/>
+      </g>
+    </g>
+    <g id="depth-legend">
+      <text x="1040" y="80" font-size="18" fill="#aab6cc">深度</text>
+      <g><circle cx="1050" cy="108" r="6" fill="#313d52" stroke="#45536e" stroke-width="1.5"/><text x="1064" y="114" font-size="18" fill="#e8ecf4">0 · 底板</text></g>
+      <g><circle cx="1050" cy="148" r="6" fill="#3d4a63" stroke="#45536e" stroke-width="1.5"/><text x="1064" y="154" font-size="18" fill="#e8ecf4">8 · 图片</text></g>
+      <g><circle cx="1050" cy="188" r="6" fill="#4a5a76" stroke="#45536e" stroke-width="1.5"/><text x="1064" y="194" font-size="18" fill="#e8ecf4">34 · 文案</text></g>
+      <g><circle cx="1050" cy="228" r="6" fill="#ffd166"/><text x="1064" y="234" font-size="18" fill="#e8ecf4">42 · 星光</text></g>
+    </g>
+    <g id="diagram-note" text-anchor="middle">
+      <text x="950" y="306" font-size="19" fill="#aab6cc">指针倾斜 ±13° / ∓11° · 双击翻牌看卡背</text>
+    </g>
+  </g>
+</svg>
